@@ -227,18 +227,18 @@ export const PROJECTS: readonly Project[] = [
     link: { label: 'Take the quiz', href: 'swot-quiz.html' },
   },
   {
-    title: 'Project Kassena',
+    title: 'Indigen World',
     category: 'Language Infrastructure · Community',
     tags: ['Community', 'Technology', 'Research'],
     icon: '🗣️',
     description:
-      'Building a trusted digital Kasem dictionary, phrase corpus, and AI-ready language dataset, created with community input and designed for education, culture, and long-term preservation.',
+      'Indigen World is building a trusted digital Kasem dictionary, phrase corpus, and AI-ready language dataset, created with community input and designed for education, culture, and long-term preservation.',
     stack: ['Language dataset', 'Community tooling'],
     impact: 'Protects language heritage while preparing community knowledge for digital learning systems.',
     status: 'Research build',
     year: '2025-Present',
     meta: 'Started: April 20, 2025',
-    link: { label: 'Visit Project Kassena', href: 'https://kassena.azlearner.me' },
+    link: { label: 'Visit Indigen World', href: 'https://indigenworld.com' },
   },
   {
     title: 'Luban Workshop Restaurant',
@@ -299,21 +299,30 @@ export const PROJECTS: readonly Project[] = [
 export const SKILLS: readonly Skill[] = [
   {
     icon: '🌐',
+    eyebrow: 'Launch & grow',
     name: 'Business & Brand Websites',
     description:
       'Fast, modern, SEO-ready websites for organisations, tourism brands and personal brands — designed, built and deployed live.',
+    deliverables: ['Responsive marketing pages', 'SEO, analytics & launch setup', 'Ongoing updates available'],
+    ctaLabel: 'Build a website',
   },
   {
     icon: '📊',
+    eyebrow: 'Run operations',
     name: 'Portals & Operational Dashboards',
     description:
       'Custom portals, admin dashboards and internal tools that turn manual, paper-based workflows into clear, trackable digital operations.',
+    deliverables: ['Admin and client portals', 'Workflow automation', 'Secure, trackable data'],
+    ctaLabel: 'Plan a platform',
   },
   {
     icon: '🤖',
+    eyebrow: 'Test & scale',
     name: 'Web Apps & AI-Assisted Tools (MVPs)',
     description:
       'End-to-end web applications and AI-assisted tools — authentication, payments, data and dashboards — built and shipped as working products.',
+    deliverables: ['Authentication and payments', 'AI-assisted workflows', 'Production-ready MVP launch'],
+    ctaLabel: 'Start an MVP',
   },
 ];
 

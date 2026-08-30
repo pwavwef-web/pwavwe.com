@@ -8,6 +8,7 @@ import {
   SKILLS,
   SOCIALS,
   STATS,
+  STUDIO_URL,
 } from '../data/content.ts';
 import type { Certificate, ExperienceItem, Project } from '../types.ts';
 import { escapeHtml, qs, qsa } from '../util/dom.ts';
@@ -105,7 +106,7 @@ const PROJECT_COVERS: Readonly<Record<string, string>> = {
   'hallkey': 'assets/project-covers/hallkey.webp',
   'az-learner': 'assets/project-covers/az-learner.webp',
   'personal-swot-analysis-quiz': 'assets/project-covers/swot-quiz.webp',
-  'project-kassena': 'assets/project-covers/project-kassena.webp',
+  'indigen-world': 'assets/project-covers/indigen-world.webp',
   'advanced-tourism-concepts-ebook': 'assets/project-covers/tourism-ebook.webp',
   'francis-pwavwe-productions': 'assets/project-covers/productions.webp',
   'campus-sustainability-operations': 'assets/project-covers/sustainability-operations.webp',
@@ -426,13 +427,23 @@ function renderSkills(): void {
   const grid = qs('[data-skills]');
   if (!grid) return;
   grid.innerHTML = SKILLS.map(
-    (s) => `
-    <div class="skill tilt">
+    (s, index) => `
+    <article class="skill tilt">
       <div class="skill__glow"></div>
-      <div class="skill__icon">${escapeHtml(s.icon)}</div>
+      <div class="skill__top">
+        <span class="skill__icon" aria-hidden="true">${escapeHtml(s.icon)}</span>
+        <span class="skill__index" aria-hidden="true">${String(index + 1).padStart(2, '0')}</span>
+      </div>
+      <p class="skill__eyebrow">${escapeHtml(s.eyebrow)}</p>
       <h3 class="skill__name">${escapeHtml(s.name)}</h3>
       <p class="skill__desc">${escapeHtml(s.description)}</p>
-    </div>`,
+      <ul class="skill__list">
+        ${s.deliverables.map((item) => `<li><span aria-hidden="true">✓</span>${escapeHtml(item)}</li>`).join('')}
+      </ul>
+      <a class="skill__link" href="${STUDIO_URL}" target="_blank" rel="noopener">
+        ${escapeHtml(s.ctaLabel)} <span aria-hidden="true">↗</span>
+      </a>
+    </article>`,
   ).join('');
   bindTilt(grid);
 }

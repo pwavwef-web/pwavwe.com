@@ -959,12 +959,22 @@ a {
 
 /* ---------- Skills ---------- */
 .skills__grid {
-  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
 }
 .skill {
-  padding: 1.6rem;
+  display: flex;
+  min-height: 430px;
+  padding: 1.9rem;
+  flex-direction: column;
   text-align: left;
   overflow: hidden;
+}
+.skill::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto;
+  height: 3px;
+  background: linear-gradient(90deg, #1d5ed8, #0f766e);
 }
 .skill__glow {
   position: absolute;
@@ -976,18 +986,92 @@ a {
   opacity: 0.5;
 }
 .skill__icon {
-  font-size: 1.8rem;
-  margin-bottom: 0.8rem;
+  display: grid;
+  width: 3.4rem;
+  height: 3.4rem;
+  place-items: center;
+  border: 1px solid rgba(29, 94, 216, 0.16);
+  border-radius: 14px;
+  background: linear-gradient(145deg, rgba(29, 94, 216, 0.1), rgba(15, 118, 110, 0.1));
+  font-size: 1.65rem;
+}
+.skill__top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.45rem;
+}
+.skill__index {
+  color: #8a97ad;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+}
+.skill__eyebrow {
+  margin-bottom: 0.45rem;
+  color: #1d5ed8;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
 }
 .skill__name {
   font-family: var(--font-display);
-  font-size: 1.05rem;
-  font-weight: 600;
-  margin-bottom: 0.35rem;
+  font-size: clamp(1.25rem, 2vw, 1.55rem);
+  font-weight: 650;
+  line-height: 1.2;
+  margin-bottom: 0.75rem;
 }
 .skill__desc {
   color: var(--text-dim);
-  font-size: 0.88rem;
+  font-size: 0.9rem;
+  line-height: 1.65;
+}
+.skill__list {
+  display: grid;
+  gap: 0.65rem;
+  margin: 1.35rem 0 1.5rem;
+  padding: 1.15rem 0 0;
+  border-top: 1px solid rgba(14, 37, 77, 0.1);
+  list-style: none;
+}
+.skill__list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  color: #33415a;
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+.skill__list li span {
+  color: #0f766e;
+  font-weight: 800;
+}
+.skill__link {
+  display: inline-flex;
+  width: fit-content;
+  align-items: center;
+  gap: 0.45rem;
+  margin-top: auto;
+  color: #1646a3;
+  font-family: var(--font-display);
+  font-size: 0.86rem;
+  font-weight: 700;
+}
+.skill__link span {
+  transition: transform 0.2s var(--ease);
+}
+.skill__link:hover span,
+.skill__link:focus-visible span {
+  transform: translate(3px, -3px);
+}
+.skill__link:focus-visible {
+  border-radius: 4px;
+  outline: 2px solid #1d5ed8;
+  outline-offset: 4px;
 }
 
 /* ---------- Timeline ---------- */
@@ -2890,7 +2974,7 @@ body {
   --project-b: #f97316;
 }
 
-.project[data-visual='project-kassena'] {
+.project[data-visual='indigen-world'] {
   --project-a: #2dd4bf;
   --project-b: #134e4a;
 }

@@ -32,8 +32,11 @@ export interface Project {
 
 export interface Skill {
   readonly icon: string;
+  readonly eyebrow: string;
   readonly name: string;
   readonly description: string;
+  readonly deliverables: readonly string[];
+  readonly ctaLabel: string;
 }
 
 export interface ExperienceItem {
