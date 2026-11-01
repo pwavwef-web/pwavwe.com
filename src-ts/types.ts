@@ -25,6 +25,7 @@ export interface Project {
   readonly status?: string;
   readonly year?: string;
   readonly link?: { readonly label: string; readonly href: string };
+  readonly caseStudy?: string; // case study on this site, e.g. /work/comitia
   readonly liveBadges?: readonly { readonly label: string; readonly src: string }[];
   readonly meta?: string;
   readonly featured?: boolean;

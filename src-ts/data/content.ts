@@ -17,15 +17,15 @@ export const PROFILE = {
   name: 'Francis Pwavwe',
   handle: 'pwavwe.com',
   // Shown in the hero as an availability / positioning chip.
-  credential: 'Open for projects & remote roles · Based in Ghana',
+  credential: 'Taking on projects · Cape Coast, Ghana · working remotely',
   roles: [
-    'Digital Product Builder',
-    'Tourism Professional',
-    'Web & Platform Developer',
-    'Founder of AZ Learner',
+    'Founder, Pwavwe Studio',
+    'Web & App Developer',
+    'AI-Assisted Systems Builder',
+    'Tourism Management Graduate',
   ],
   tagline:
-    'I build websites, platforms and AI-assisted tools for education, tourism and growing organisations. From campus applications to operational dashboards, I turn complicated workflows into digital products people can actually use.',
+    'I build websites, web apps and AI-assisted systems for campuses, tourism operators and growing organisations in Ghana. From campus apps to booking platforms, I turn complicated workflows into products people can actually use.',
   email: 'francis@pwavwe.com',
   location: 'Cape Coast, Ghana',
   linkedin: 'https://linkedin.com/in/francis-pwavwe',
@@ -41,54 +41,55 @@ export const NAV_ITEMS: readonly NavItem[] = [
   { id: 'journey', label: 'Journey' },
   { id: 'insights', label: 'Writing' },
   { id: 'contact', label: 'Contact' },
-  { id: 'build', label: 'Build With Me', href: 'https://build.pwavwe.com', variant: 'cta' },
+  { id: 'build', label: 'Pwavwe Studio', href: '/studio', variant: 'cta' },
 ];
 
-// The commercial studio (build.pwavwe.com) — pwavwe.com hands enquiries here.
-export const STUDIO_URL = 'https://build.pwavwe.com';
+// The commercial studio's public pages live on this domain at /studio; its
+// project-request app stays on build.pwavwe.com.
+export const STUDIO_URL = '/studio';
 
 export const SOCIALS: readonly SocialLink[] = [
   { label: 'Email', href: 'mailto:francis@pwavwe.com', icon: '✉' },
   { label: 'LinkedIn', href: 'https://linkedin.com/in/francis-pwavwe', icon: 'in' },
   { label: 'GitHub', href: 'https://github.com/pwavwef-web', icon: 'gh' },
-  { label: 'AZ Learner', href: 'https://azlearner.me', icon: '↗' },
+  { label: 'The Pwavwe Papers', href: 'https://blogs.pwavwe.com', icon: '✎' },
 ];
 
 // ============================================================================
-//  STATS  (animated counters — reframed as builder proof)
+//  STATS  (animated counters — every number must match a list a visitor can
+//  check: the six case studies at /work, four of them live platforms)
 // ============================================================================
 export const STATS: readonly Stat[] = [
-  { value: 15, suffix: '+', label: 'Digital Products Built' },
-  { value: 6, suffix: '', label: 'Live Platforms Deployed' },
-  { value: 3, suffix: '+', label: 'Years Building AZ Learner' },
-  { value: 15, suffix: '', label: 'Certifications' },
+  { value: 6, suffix: '', label: 'Case Studies' },
+  { value: 4, suffix: '', label: 'Live Platforms' },
+  { value: 1, suffix: '', label: 'App on Google Play' },
 ];
 
 // ============================================================================
 //  PROOF BAR  (compact strip shown directly under the hero)
 // ============================================================================
 export const PROOF_POINTS: readonly string[] = [
-  '15+ digital products built',
+  '6 case studies · 4 live platforms',
   'React · TypeScript · Firebase · Flutter',
-  'Education, tourism & organisational systems',
-  'Based in Ghana · working remotely',
+  'Campus, tourism & organisational systems',
+  'Cape Coast, Ghana · working remotely',
 ];
 
 // ============================================================================
 //  ABOUT  (highlights)
 // ============================================================================
 export const ABOUT_PARAGRAPHS: readonly string[] = [
-  'I am Francis Pwavwe — a digital product builder who designs and ships websites, platforms and AI-assisted tools. I turn complicated, manual workflows into software that real people can pick up and use.',
-  'My edge is the industries I build for. As a Tourism Management graduate of the University of Cape Coast and founder of AZ Learner, I understand campus operations, tourism, and education from the inside — so the products I build fit how these organisations actually work.',
-  'I have shipped election systems, booking platforms, campus apps, access-control tools and AI career software — most of them live in production today. Alongside the code, cadet-corps and student-leadership roles gave me the discipline to plan, coordinate and deliver under real deadlines.',
-  'The through-line is simple: build purposeful digital systems that improve how organisations across Africa learn, operate and grow.',
+  'I am Francis Pwavwe. I build websites, web apps and AI-assisted systems for campuses, tourism operators and growing organisations in Ghana, through my studio, Pwavwe Studio.',
+  'My edge is the industries I build for. I am a Tourism Management graduate of the University of Cape Coast, so I understand campus operations, travel and hospitality from the inside — and the products I build fit how these organisations actually work.',
+  'I have shipped an election platform, an intercity booking system, a campus app on Google Play, an AI career tool and a campus access prototype. Alongside the code, cadet-corps and student-leadership roles gave me the discipline to plan, coordinate and deliver under real deadlines.',
+  'I also write The Pwavwe Papers, essays on technology, tourism and work, and run AZ Studio, a separate creative workspace for films and narrated audio.',
 ];
 
 export const ABOUT_HIGHLIGHTS: readonly { label: string; value: string }[] = [
-  { label: 'Primary work', value: 'Digital Product Builder' },
-  { label: 'Founder', value: 'AZ Learner' },
-  { label: 'Industries', value: 'Education · Tourism · Orgs' },
-  { label: 'Based in', value: 'Ghana · Remote' },
+  { label: 'Primary work', value: 'Websites, web apps & AI systems' },
+  { label: 'Studio', value: 'Pwavwe Studio' },
+  { label: 'Industries', value: 'Campuses · Tourism · Orgs' },
+  { label: 'Based in', value: 'Cape Coast, Ghana · Remote' },
 ];
 
 // ============================================================================
@@ -99,20 +100,21 @@ export const ABOUT_HIGHLIGHTS: readonly { label: string; value: string }[] = [
 // ============================================================================
 export const PROJECTS: readonly Project[] = [
   {
-    title: 'Pollaris Election Platform',
-    category: 'Election Technology',
+    title: 'Comitia',
+    category: 'Election Platform',
     tags: ['Technology', 'Leadership', 'Community'],
     icon: 'assets/project-covers/pollaris-mark.png',
     iconIsImage: true,
     coverImage: 'assets/project-covers/pollaris.webp',
     description:
-      'Departmental elections were run manually — hard to secure, slow to tally, and impossible to audit. Pollaris is a configurable multi-election platform with voter-code access, ballot setup, staff dashboards, audit trails, certified results and election-scoped exports.',
+      'Elections were run manually — hard to secure, slow to tally and impossible to audit. Comitia is a managed online elections platform, from voter setup and voter-code access to staff dashboards, audit trails and certified public results.',
     role: 'Product designer & full-stack developer',
     stack: ['React', 'TypeScript', 'Firebase', 'Auth & audit trails'],
     impact: 'Brought digital structure, transparency and auditable participation to real campus elections.',
     status: 'Live platform',
     year: '2026',
-    link: { label: 'Visit Pollaris', href: 'https://absag-ucc1.web.app' },
+    link: { label: 'Visit Comitia', href: 'https://comitia.pwavwe.com' },
+    caseStudy: '/work/comitia',
     featured: true,
   },
   {
@@ -129,7 +131,8 @@ export const PROJECTS: readonly Project[] = [
     impact: 'Helps students convert real experience into stronger, job-ready applications with practical AI support.',
     status: 'Live platform',
     year: '2026',
-    link: { label: 'Visit VitaForge', href: 'https://vitaforge.pwavwe.com' },
+    link: { label: 'Visit VitaForge AI', href: 'https://vitaforge.pwavwe.com' },
+    caseStudy: '/work/vitaforge-ai',
     featured: true,
   },
   {
@@ -146,6 +149,7 @@ export const PROJECTS: readonly Project[] = [
     status: 'Live platform',
     year: '2026',
     link: { label: 'Visit SMG Agency', href: 'https://smgagencygh.com' },
+    caseStudy: '/work/smg-transport-agency',
     featured: true,
   },
   {
@@ -163,6 +167,7 @@ export const PROJECTS: readonly Project[] = [
     status: 'Live prototype',
     year: '2026',
     link: { label: 'Visit HallKey', href: 'https://hallkey.web.app' },
+    caseStudy: '/work/hallkey',
     featured: true,
   },
   {
@@ -196,21 +201,22 @@ export const PROJECTS: readonly Project[] = [
         src: 'https://img.shields.io/endpoint?url=https%3A%2F%2Fplay.cuzi.workers.dev%2Fplay%3Fi%3Dcom.uccsrc.uccsrcapp%26hl%3Den%26gl%3DUS%26l%3DRated%26m%3D%24friendly&style=flat-square&labelColor=10213f&color=b88a1d',
       },
     ],
+    caseStudy: '/work/ucc-src-app',
     featured: true,
   },
   {
     title: 'AZ Learner',
-    category: 'Education Technology',
+    category: 'Student App',
     tags: ['Education', 'Technology'],
     icon: '🎓',
     description:
-      'The platform I founded and lead: an academic support system improving student retention and performance through purposeful learning paths, resource access, analytics-informed support and collaborative study tools.',
-    role: 'Founder & CEO · product lead',
-    stack: ['Web platform', 'Firebase', 'Learning tools'],
-    impact: 'Built as a long-term academic support system for learners across UCC and beyond.',
-    status: 'Founder-led',
-    year: '2023-Present',
-    link: { label: 'Visit azlearner.me', href: 'https://azlearner.me' },
+      'A student app that put UCC academic life in one place: a Gemini-powered study assistant, timetable, tasks and notes, a GPA calculator, event tickets, direct chat and campus print-and-deliver requests.',
+    role: 'Founder & developer',
+    stack: ['Flutter', 'Firebase', 'Gemini'],
+    impact: 'Gave students one home for study tools and campus services instead of scattered chats and noticeboards.',
+    status: 'Student app',
+    year: '2025–2026',
+    caseStudy: '/work/az-learner',
     featured: true,
   },
   {
@@ -278,7 +284,7 @@ export const PROJECTS: readonly Project[] = [
       'A comprehensive social media strategy for Torchlight Tours, covering audience engagement, brand positioning, and conversion optimisation in a competitive tourism market.',
     impact: 'Sharpens the path from travel inspiration to inquiry for a tourism brand.',
     status: 'Consulting',
-    year: '2024',
+    year: '2025',
   },
   {
     title: 'Tourism Research & Analysis',
@@ -330,13 +336,13 @@ export const SKILLS: readonly Skill[] = [
 //  EXPERIENCE  (journey timeline)
 // ============================================================================
 export const EXPERIENCE: readonly ExperienceItem[] = [
-  { kind: 'leadership', title: 'Founder & CEO', company: 'AZ Learner', date: '2023 – Present', description: 'Founded and leading an education-tech platform improving student retention and academic performance through purposeful digital products — from strategy through to shipped software.' },
-  { kind: 'work', title: 'Digital Product Builder (Freelance)', company: 'Independent · Ghana / Remote', date: '2023 – Present', description: 'Designing and shipping websites, platforms and AI-assisted tools for education, tourism and growing organisations — including Pollaris, VitaForge, SMG Agency, HallKey and the UCC SRC app.' },
+  { kind: 'work', title: 'Founder', company: 'Pwavwe Studio · Cape Coast / Remote', date: '2023 – Present', description: 'Designing and shipping websites, web apps and AI-assisted systems for campuses, tourism operators and growing organisations — including Comitia, VitaForge AI, SMG Transport Agency, HallKey and the UCC SRC app.' },
+  { kind: 'leadership', title: 'Founder & CEO', company: 'AZ Learner', date: 'Dec 2025 – Present', description: 'Founded AZ Learner and built its student app for UCC: an AI study assistant, timetable, GPA tools, event tickets and campus services. The azlearner.me domain now hosts AZ Studio, my creative workspace for films and narrated audio.' },
   { kind: 'work', title: 'Intern — Housekeeping & Food and Beverage', company: 'Kempinski Hotel Gold Coast City', date: 'Aug – Oct 2025', description: 'Hands-on experience in luxury hospitality operations — guest service excellence, operational efficiency, and five-star quality standards.' },
   { kind: 'education', title: 'Harvard Aspire Leaders Program', company: 'Cohort 5', date: '2025', description: 'Completed the Aspire Leaders Program — leadership frameworks, strategic thinking, and global perspectives.' },
   { kind: 'leadership', title: 'Committee Member — Water & Sanitation', company: 'SRC, University of Cape Coast', date: 'Feb – Jul 2026', description: "Served on the Student Representative Council's Water and Sanitation Committee, contributing to campus welfare and sustainability initiatives." },
-  { kind: 'leadership', title: 'Head of Security & Transport Committee', company: 'Journey to the East Event', date: '2024', description: 'Led security and transportation operations for a major regional event — logistics, team coordination, and seamless safety protocols.' },
-  { kind: 'work', title: 'Digital Strategy Consultant', company: 'Torchlight Tours', date: '2023 – 2024', description: 'Social media strategy to enhance brand visibility, audience engagement, and conversion rates in a competitive tourism market.' },
+  { kind: 'leadership', title: 'Head of Security & Transport Committee', company: 'Journey to the East Event', date: '2025', description: 'Led security and transportation operations for a major regional event — logistics, team coordination, and seamless safety protocols.' },
+  { kind: 'work', title: 'Marketing & Social Strategy', company: 'Torchlight Tours', date: '2025', description: 'Social media strategy to enhance brand visibility, audience engagement, and conversion rates in a competitive tourism market.' },
   { kind: 'leadership', title: 'Cadet Member', company: 'Oguaa Hall & UCC Armed Forces Cadet Corps', date: '2022 – Present', description: 'Developing leadership, discipline, and strategic thinking through military training and cadet corps activities.' },
   { kind: 'education', title: 'BSc Tourism Management (Graduate)', company: 'University of Cape Coast', date: '2021 – 2026', description: 'Graduated in 2026 with a background in tourism management, strategic planning and hospitality operations, including research on sustainable tourism.' },
   { kind: 'simulation', title: 'Vista Equity Partners — AI in Action (Forage)', company: 'Vista Equity Partners', date: 'March 2026', description: 'Prompt engineering and GenAI workflow automation for Portfolio Operations — synthesising NPS feedback into executive-ready insights and improving output relevance by iteration.' },
@@ -363,20 +369,6 @@ export const CERTIFICATES: readonly Certificate[] = [
   { title: 'Cross Cultural Communication with Stakeholders', issuer: 'NELS SS26', date: '2026', href: `${CERT}/NELS SS26_Certificate Cross Cultural Communication with Stakeholders.pdf` },
   { title: "Sustainability and SDG's", issuer: 'NELS SS26', date: '2026', href: `${CERT}/NELS SS26_Certificate Sustainability and SDG's.pdf` },
 ];
-
-// ============================================================================
-//  SUPPORT  (kept for the small footer link — no longer a homepage section)
-// ============================================================================
-export const SUPPORT = {
-  intro:
-    'AZ Learner is an independent, student-led initiative committed to transforming how students learn. Your contribution directly funds platform development, educational resources, and outreach to students who need it most.',
-  paystack: 'https://paystack.shop/pay/fw5uib9s1g',
-  impact: [
-    { icon: '📚', title: 'Educational Resources', text: 'Free academic tools and study materials for students across disciplines at UCC and beyond.' },
-    { icon: '⚙️', title: 'Platform Development', text: 'Continuous improvement of the AZ Learner platform, its features, and the infrastructure that runs it.' },
-    { icon: '🌍', title: 'Expanding Reach', text: 'Outreach to bring quality academic support to underserved student communities across Africa.' },
-  ],
-} as const;
 
 export const EBOOK_HREF =
   'docs/archive/Advanced_Tourism_Concepts_UCC_Student_Creator_Ebook.pdf';

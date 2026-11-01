@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { AlertTriangle, LayoutGrid, LoaderCircle, LockKeyhole, LogIn, LogOut, MessageSquareQuote } from 'lucide-react';
 import { Link, NavLink, Outlet, useLocation } from 'react-router-dom';
+import { StudioLink } from './StudioLink';
 import { onAuthStateChanged, signInWithPopup, signOut, type User } from 'firebase/auth';
 import { Seo } from './Seo';
 import { auth, googleProvider, verifyBuildAdmin } from '../lib/firebase';
@@ -89,10 +90,10 @@ function GateScreen({ icon, title, message, action }: { icon: React.ReactNode; t
   return (
     <div className="dash-gate">
       <Seo title="Studio Admin — Pwavwe Studio" description="Protected Pwavwe Studio management console." path="/admin" noIndex />
-      <Link className="dash-brand dash-gate-brand" to="/">
+      <StudioLink className="dash-brand dash-gate-brand" to="/studio">
         <span className="brand-mark" aria-hidden="true">P/</span>
         <span>Pwavwe <b>Studio</b></span>
-      </Link>
+      </StudioLink>
       <div className="dash-gate-panel">
         {icon}
         <p className="eyebrow">PROTECTED AREA</p>

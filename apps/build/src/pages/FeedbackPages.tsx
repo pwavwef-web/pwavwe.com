@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { ArrowRight, CheckCircle2, LoaderCircle, Lock, Star } from 'lucide-react';
-import { Link, useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { StudioLink as Link } from '../components/StudioLink';
 import type { ZodIssue } from 'zod';
 import { Seo } from '../components/Seo';
 import { track } from '../lib/analytics';

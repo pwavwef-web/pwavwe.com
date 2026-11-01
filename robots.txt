@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /francis.html
+Disallow: /francis
+
+Sitemap: https://pwavwe.com/sitemap.xml

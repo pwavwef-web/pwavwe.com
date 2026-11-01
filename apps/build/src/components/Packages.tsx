@@ -1,5 +1,5 @@
 import { ArrowUpRight, Check } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { StudioLink as Link } from './StudioLink';
 import { packages } from '../data/packages';
 import { studio } from '../data/studio';
 import { track } from '../lib/analytics';

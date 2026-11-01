@@ -1,27 +1,10 @@
-import { initializeApp } from 'firebase/app';
 import { initializeAppCheck, ReCaptchaV3Provider } from 'firebase/app-check';
 import { getAuth, GoogleAuthProvider } from 'firebase/auth';
 import { connectFunctionsEmulator, getFunctions, httpsCallable } from 'firebase/functions';
+import { firebaseApp as app } from './firebaseApp';
 
-const defaults = {
-  apiKey: 'AIzaSyCMwy_PRlS7H2NjEvMVI44PKUS2K0dpjz8',
-  authDomain: 'francis-pwavwe.firebaseapp.com',
-  projectId: 'francis-pwavwe',
-  storageBucket: 'francis-pwavwe.firebasestorage.app',
-  messagingSenderId: '658069378543',
-  appId: '1:658069378543:web:1a1caa8433c201b85bd21a',
-};
-
-export const siteUrl = (import.meta.env.VITE_SITE_URL ?? 'https://build.pwavwe.com').replace(/\/$/, '');
-
-const app = initializeApp({
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY ?? defaults.apiKey,
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN ?? defaults.authDomain,
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID ?? defaults.projectId,
-  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET ?? defaults.storageBucket,
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID ?? defaults.messagingSenderId,
-  appId: import.meta.env.VITE_FIREBASE_APP_ID ?? defaults.appId,
-});
+export { siteUrl } from './paths';
+export { fetchPublicTestimonials, type PublicTestimonial } from './publicTestimonials';
 
 if (import.meta.env.VITE_APP_CHECK_SITE_KEY) {
   initializeAppCheck(app, {
@@ -200,30 +183,6 @@ export type RequesterPortal = {
   activity: RequestActivity[];
   messages: RequestMessage[];
 };
-
-export type PublicTestimonial = {
-  name: string;
-  role?: string;
-  organisation?: string;
-  quote: string;
-  rating: number;
-  projectName?: string;
-  featured?: boolean;
-  order?: number;
-  sourceId?: string;
-};
-
-// Public, display-safe testimonials. Written only by trusted callable Functions
-// and readable by anyone, so this never exposes emails or private feedback.
-// The Firestore SDK is imported dynamically so it stays out of the initial
-// bundle — the landing page only pays for it once testimonials are requested.
-// Sorting is done client-side to avoid needing a composite index.
-export async function fetchPublicTestimonials(max = 60): Promise<PublicTestimonial[]> {
-  const { collection, getDocs, getFirestore, limit, orderBy, query } = await import('firebase/firestore');
-  const snapshot = await getDocs(query(collection(getFirestore(app), 'publicTestimonials'), orderBy('approvedAt', 'desc'), limit(max)));
-  const items = snapshot.docs.map((document) => document.data() as PublicTestimonial);
-  return items.sort((a, b) => Number(b.featured) - Number(a.featured) || (a.order ?? 0) - (b.order ?? 0));
-}
 
 export type AdminTestimonial = {
   id: string;

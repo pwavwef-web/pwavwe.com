@@ -1,18 +1,20 @@
 import { useEffect, useState } from 'react';
 import { ArrowUpRight, Menu, X } from 'lucide-react';
-import { Link, NavLink, Outlet, useLocation } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import { hasWhatsApp, whatsappLink } from '../data/studio';
 import { track } from '../lib/analytics';
 import { MotionLayer } from './MotionLayer';
+import { StudioLink as Link, StudioNavLink as NavLink } from './StudioLink';
 
 const navigation = [
   ['/work', 'Work'], ['/services', 'Services'], ['/services#packages', 'Pricing'],
-  ['/process', 'Process'], ['/about', 'About'], ['/contact', 'Contact'],
+  ['/process', 'Process'], ['/studio/about', 'About'], ['/studio/contact', 'Contact'],
 ] as const;
 
 export function Layout() {
   const [open, setOpen] = useState(false);
-  const [online, setOnline] = useState(navigator.onLine);
+  // Prerendered pages render once in Node, where there is no network state.
+  const [online, setOnline] = useState(() => typeof navigator === 'undefined' || navigator.onLine !== false);
   const location = useLocation();
 
   // "Pricing" is a jump-link to a section of the Services page, not a page of
@@ -75,7 +77,7 @@ export function Layout() {
       <a className="skip-link" href="#main-content">Skip to content</a>
       {!online && <div className="offline-banner" role="status">You are offline. Pages already loaded remain available; submissions will wait for a connection.</div>}
       <header className="site-header">
-        <Link className="brand" to="/" aria-label="Pwavwe Studio home">
+        <Link className="brand" to="/studio" aria-label="Pwavwe Studio home">
           <span className="brand-mark" aria-hidden="true">P/</span>
           <span>Pwavwe <b>Studio</b></span>
         </Link>
@@ -100,7 +102,7 @@ export function Layout() {
       <footer className="site-footer">
         <div className="footer-grid">
           <div>
-            <Link className="brand footer-brand" to="/"><span className="brand-mark">P/</span><span>Pwavwe <b>Studio</b></span></Link>
+            <Link className="brand footer-brand" to="/studio"><span className="brand-mark">P/</span><span>Pwavwe <b>Studio</b></span></Link>
             <p>Websites, apps and AI-enabled systems built from real problems—not tutorial clones.</p>
             <a href="mailto:projects@pwavwe.com" onClick={() => void track('contact_email_click', { location: 'footer' })}>projects@pwavwe.com</a>
           </div>
@@ -114,9 +116,9 @@ export function Layout() {
             <Link to="/request/status">Track a Request</Link>
             <Link to="/testimonials">Testimonials</Link>
             {hasWhatsApp() && <a href={whatsappLink('Hi Francis, I found Pwavwe Studio.')} target="_blank" rel="noopener noreferrer" onClick={() => void track('contact_whatsapp_click', { location: 'footer' })}>WhatsApp</a>}
-            <Link to="/privacy">Privacy</Link>
-            <Link to="/terms">Terms</Link>
-            <a href="https://pwavwe.com">Personal website</a>
+            <Link to="/studio/privacy">Privacy</Link>
+            <Link to="/studio/terms">Terms</Link>
+            <a href="https://pwavwe.com/">Francis Pwavwe</a>
           </nav>
         </div>
         <div className="footer-bottom"><span>© {new Date().getFullYear()} Pwavwe Studio</span><span>Built by Francis Pwavwe in Ghana.</span></div>

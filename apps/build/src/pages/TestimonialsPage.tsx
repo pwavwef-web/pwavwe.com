@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { ArrowUpRight, LoaderCircle, Quote, Star } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { StudioLink as Link } from '../components/StudioLink';
 import { Seo } from '../components/Seo';
-import { fetchPublicTestimonials, type PublicTestimonial } from '../lib/firebase';
+import { fetchPublicTestimonials, prefetchedTestimonials, type PublicTestimonial } from '../lib/publicTestimonials';
 
 export function TestimonialsPage() {
-  const [testimonials, setTestimonials] = useState<PublicTestimonial[] | null>(null);
+  const [testimonials, setTestimonials] = useState<PublicTestimonial[] | null>(() => prefetchedTestimonials());
   const [failed, setFailed] = useState(false);
 
   useEffect(() => {

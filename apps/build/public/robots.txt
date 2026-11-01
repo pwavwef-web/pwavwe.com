@@ -2,5 +2,7 @@ User-agent: *
 Allow: /
 Disallow: /admin
 Disallow: /feedback
+Disallow: /request/status
 
-Sitemap: https://build.pwavwe.com/sitemap.xml
+# The public Studio pages moved to pwavwe.com.
+Sitemap: https://pwavwe.com/sitemap.xml

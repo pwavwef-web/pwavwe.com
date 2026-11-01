@@ -60,3 +60,7 @@ apps/build/*.tsbuildinfo
 francis_old.html
 francis.html.backup
 budget-demo.html
+
+# Studio site build intermediates (prerendered output is written to the repo root)
+apps/build/dist-site/
+apps/build/dist-ssr/

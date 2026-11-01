@@ -1,7 +1,5 @@
 import { useEffect } from 'react';
-import { siteUrl } from '../lib/firebase';
-
-type SeoProps = { title: string; description: string; path?: string; noIndex?: boolean };
+import { resolveSeo, ssrHead, type SeoProps } from '../lib/seoHead';
 
 function setMeta(selector: string, attribute: 'name' | 'property', key: string, content: string): void {
   let element = document.head.querySelector<HTMLMetaElement>(selector);
@@ -13,16 +11,20 @@ function setMeta(selector: string, attribute: 'name' | 'property', key: string, 
   element.content = content;
 }
 
-export function Seo({ title, description, path = '/', noIndex = false }: SeoProps) {
+export function Seo(props: SeoProps) {
+  const head = resolveSeo(props);
+  if (import.meta.env.SSR) ssrHead.current = head;
+  const { title, description, noIndex, url, image } = head;
   useEffect(() => {
-    const url = `${siteUrl}${path === '/' ? '/' : path}`;
     document.title = title;
     setMeta('meta[name="description"]', 'name', 'description', description);
     setMeta('meta[property="og:title"]', 'property', 'og:title', title);
     setMeta('meta[property="og:description"]', 'property', 'og:description', description);
     setMeta('meta[property="og:url"]', 'property', 'og:url', url);
+    setMeta('meta[property="og:image"]', 'property', 'og:image', image);
     setMeta('meta[name="twitter:title"]', 'name', 'twitter:title', title);
     setMeta('meta[name="twitter:description"]', 'name', 'twitter:description', description);
+    setMeta('meta[name="twitter:image"]', 'name', 'twitter:image', image);
     setMeta('meta[name="robots"]', 'name', 'robots', noIndex ? 'noindex,nofollow' : 'index,follow');
     let canonical = document.head.querySelector<HTMLLinkElement>('link[rel="canonical"]');
     if (!canonical) {
@@ -31,6 +33,6 @@ export function Seo({ title, description, path = '/', noIndex = false }: SeoProp
       document.head.appendChild(canonical);
     }
     canonical.href = url;
-  }, [description, noIndex, path, title]);
+  }, [description, image, noIndex, title, url]);
   return null;
 }

@@ -4916,3 +4916,26 @@ body {
   .contact__routes { flex-direction: column; align-items: stretch; text-align: left; }
   .contact__routes .btn { justify-content: center; }
 }
+
+/* Case study + live product links on a project card */
+.project__links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 1.1rem;
+  margin-top: auto;
+}
+.project__links .project__link,
+.work .project__links .project__link {
+  margin-top: 0;
+}
+
+.insights__more {
+  margin-top: 1.25rem;
+  text-align: center;
+  font-weight: 600;
+}
+.proof-bar__item a {
+  color: inherit;
+  text-decoration: none;
+}

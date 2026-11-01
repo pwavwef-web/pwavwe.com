@@ -3,7 +3,8 @@ import {
   Activity, Bell, CheckCircle2, Clock, GitPullRequest, LayoutDashboard, ListChecks, LoaderCircle,
   LockKeyhole, Mail, MessagesSquare, RefreshCw, Send, ShieldAlert, Smartphone,
 } from 'lucide-react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
+import { StudioLink as Link } from '../components/StudioLink';
 import { Seo } from '../components/Seo';
 import {
   getRequesterRequest, submitRequesterMessage, updateRequesterPreferences, verifyRequesterCode,
@@ -146,13 +147,13 @@ export function RequesterPortalPage() {
   };
 
   if (loading) return <div className="dash portal-dash"><Seo title="Track Request - Pwavwe Studio" description="Track your Pwavwe Studio request." path="/request/status" noIndex /><div className="dash-gate-panel dash-loading"><LoaderCircle className="spin" /><p>Loading request status...</p></div></div>;
-  if (!portal || !session) return <div className="dash-gate portal-dash"><Seo title="Track Request - Pwavwe Studio" description="Track your Pwavwe Studio request." path="/request/status" noIndex /><Link className="dash-brand dash-gate-brand" to="/"><span className="brand-mark" aria-hidden="true">P/</span><span>Pwavwe <b>Studio</b></span></Link><div className="dash-gate-panel portal-login"><LockKeyhole /><p className="eyebrow">REQUESTER ACCESS</p><h1>Track your request</h1><p>Use the email address and request code from your confirmation message.</p><form onSubmit={login}><label>Email address<input type="email" value={email} onChange={(event) => setEmail(event.target.value)} autoComplete="email" required /></label><label>Request code<input value={reference} onChange={(event) => setReference(event.target.value.toUpperCase())} placeholder="PWS-2026-ABC234" required /></label>{error && <p className="field-error" role="alert">{error}</p>}<button className="button" type="submit" disabled={busy}>{busy ? <LoaderCircle className="spin" size={17} /> : <LockKeyhole size={17} />} Sign in</button></form></div></div>;
+  if (!portal || !session) return <div className="dash-gate portal-dash"><Seo title="Track Request - Pwavwe Studio" description="Track your Pwavwe Studio request." path="/request/status" noIndex /><Link className="dash-brand dash-gate-brand" to="/studio"><span className="brand-mark" aria-hidden="true">P/</span><span>Pwavwe <b>Studio</b></span></Link><div className="dash-gate-panel portal-login"><LockKeyhole /><p className="eyebrow">REQUESTER ACCESS</p><h1>Track your request</h1><p>Use the email address and request code from your confirmation message.</p><form onSubmit={login}><label>Email address<input type="email" value={email} onChange={(event) => setEmail(event.target.value)} autoComplete="email" required /></label><label>Request code<input value={reference} onChange={(event) => setReference(event.target.value.toUpperCase())} placeholder="PWS-2026-ABC234" required /></label>{error && <p className="field-error" role="alert">{error}</p>}<button className="button" type="submit" disabled={busy}>{busy ? <LoaderCircle className="spin" size={17} /> : <LockKeyhole size={17} />} Sign in</button></form></div></div>;
 
   const request = portal.request;
   return <div className="dash portal-dash">
     <Seo title={`${request.reference} - Request Status`} description="Requester status dashboard for a Pwavwe Studio build request." path="/request/status" noIndex />
     <header className="dash-bar">
-      <Link className="dash-brand" to="/">
+      <Link className="dash-brand" to="/studio">
         <span className="brand-mark" aria-hidden="true">P/</span>
         <span className="dash-brand-text">Pwavwe <b>Studio</b><small>Request tracker</small></span>
       </Link>

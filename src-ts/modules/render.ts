@@ -102,7 +102,7 @@ const PROJECT_COVERS: Readonly<Record<string, string>> = {
   'ucc-src-app': 'assets/project-covers/ucc-src-app.webp',
   'smg-transport-agency': 'assets/project-covers/smg-transport-agency.webp',
   'vitaforge-ai': 'assets/project-covers/vitaforge-ai.webp',
-  'pollaris-election-platform': 'assets/project-covers/pollaris.webp',
+  'comitia': 'assets/project-covers/pollaris.webp',
   'hallkey': 'assets/project-covers/hallkey.webp',
   'az-learner': 'assets/project-covers/az-learner.webp',
   'personal-swot-analysis-quiz': 'assets/project-covers/swot-quiz.webp',
@@ -120,11 +120,17 @@ function projectCard(p: Project): string {
   const iconHtml = p.iconIsImage
     ? `<img src="${p.icon}" alt="" class="project__icon-img" loading="lazy">`
     : escapeHtml(p.icon);
-  const link = p.link
+  const caseStudy = p.caseStudy
+    ? `<a href="${p.caseStudy}" class="project__link">Read case study <span aria-hidden="true">-></span></a>`
+    : '';
+  const external = p.link
     ? `<a href="${p.link.href}" class="project__link" ${
         p.link.href.startsWith('http') ? 'target="_blank" rel="noopener"' : ''
-      } aria-label="${escapeHtml(p.link.label)}">Learn More <span aria-hidden="true">-></span></a>`
+      } aria-label="${escapeHtml(p.link.label)}">${
+        p.caseStudy ? escapeHtml(p.link.label) : 'Learn More'
+      } <span aria-hidden="true">-></span></a>`
     : '';
+  const link = caseStudy || external ? `<div class="project__links">${caseStudy}${external}</div>` : '';
   const meta = p.meta ? `<p class="project__meta">${escapeHtml(p.meta)}</p>` : '';
   const badges = p.liveBadges?.length
     ? `<div class="project__badges" aria-label="Live store stats">${p.liveBadges
@@ -440,8 +446,8 @@ function renderSkills(): void {
       <ul class="skill__list">
         ${s.deliverables.map((item) => `<li><span aria-hidden="true">✓</span>${escapeHtml(item)}</li>`).join('')}
       </ul>
-      <a class="skill__link" href="${STUDIO_URL}" target="_blank" rel="noopener">
-        ${escapeHtml(s.ctaLabel)} <span aria-hidden="true">↗</span>
+      <a class="skill__link" href="${STUDIO_URL}">
+        ${escapeHtml(s.ctaLabel)} <span aria-hidden="true">→</span>
       </a>
     </article>`,
   ).join('');

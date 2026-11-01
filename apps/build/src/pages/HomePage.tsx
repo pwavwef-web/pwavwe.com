@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react';
 import { ArrowRight, ArrowUpRight, Star } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { StudioLink as Link } from '../components/StudioLink';
 import { Packages } from '../components/Packages';
 import { ProjectCard } from '../components/ProjectCard';
 import { Seo } from '../components/Seo';
 import { publishedProjects } from '../data/projects';
 import { processSteps, services } from '../data/services';
 import { track } from '../lib/analytics';
-import { fetchPublicTestimonials, type PublicTestimonial } from '../lib/firebase';
+import { asset } from '../lib/paths';
+import { fetchPublicTestimonials, prefetchedTestimonials, type PublicTestimonial } from '../lib/publicTestimonials';
 
 const audiences = [
   ['Students & researchers', 'Portfolio and CV sites, research tools, project websites, survey dashboards and honest student-business MVPs.'],
@@ -32,12 +33,12 @@ const faqs = [
 export function HomePage() {
   return (
     <>
-      <Seo title="Pwavwe Studio — Websites, Apps and AI Systems" description="Francis Pwavwe designs and builds websites, applications, campus platforms and AI-enabled systems for students, organisations, creators and growing businesses." />
+      <Seo title="Pwavwe Studio — Websites, Apps and AI Systems in Ghana" description="Pwavwe Studio is Francis Pwavwe’s build practice in Cape Coast, Ghana: websites, web apps and AI-assisted systems for campuses, tourism operators and growing organisations." path="/studio" />
       <section className="hero section-pad">
         <div className="hero-copy">
-          <p className="eyebrow"><span /> INDEPENDENT PRODUCT STUDIO · GHANA</p>
+          <p className="eyebrow"><span /> INDEPENDENT PRODUCT STUDIO · CAPE COAST, GHANA</p>
           <h1>Bring the idea.<br /><em>Let’s make it work.</em></h1>
-          <p className="hero-lede">I design and build websites, applications, campus platforms and AI-enabled systems for students, organisations, creators and growing businesses.</p>
+          <p className="hero-lede">I build websites, web apps and AI-assisted systems for campuses, tourism operators and growing organisations in Ghana.</p>
           <div className="hero-chips" aria-label="Studio capabilities"><span>Websites</span><span>Digital products</span><span>Useful AI</span></div>
           <div className="button-row">
             <Link className="button" to="/request" onClick={() => void track('hero_request_click', { location: 'hero' })}>Request a Build <ArrowUpRight size={18} /></Link>
@@ -46,7 +47,7 @@ export function HomePage() {
         </div>
         <figure className="hero-art">
           <img
-            src="/pwavwe-studio-hero.webp"
+            src={asset('pwavwe-studio-hero.webp')}
             alt="A connected path showing an idea moving through scope and build to a live digital system"
             width="1324"
             height="1188"
@@ -94,7 +95,7 @@ export function HomePage() {
 // Shows published testimonials, and renders nothing at all until at least one
 // exists — so the section never appears empty or broken on a fresh site.
 function HomeTestimonials() {
-  const [testimonials, setTestimonials] = useState<PublicTestimonial[]>([]);
+  const [testimonials, setTestimonials] = useState<PublicTestimonial[]>(() => prefetchedTestimonials() ?? []);
   useEffect(() => {
     let cancelled = false;
     void (async () => {

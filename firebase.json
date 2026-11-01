@@ -12,11 +12,51 @@
         "**/*.dart",
         "pubspec.yaml",
         "francis_old.html",
-        "francis.html.backup"
+        "francis.html.backup",
+        "apps/**",
+        "dist/**",
+        "**/*.md",
+        "**/*.docx",
+        "**/*.log",
+        "**/*.ts",
+        "package.json",
+        "package-lock.json",
+        "tsconfig.json",
+        "analysis_options.yaml",
+        "firestore.rules",
+        "firestore.indexes.json",
+        "storage.rules",
+        "CNAME",
+        "blogs-app.html",
+        "app.html"
       ],
       "cleanUrls": true,
       "trailingSlash": false,
-      "404": "404.html"
+      "404": "404.html",
+      "redirects": [
+        { "regex": "^/fp-(index|projects)(\\.html)?$", "destination": "/", "type": 301 },
+        { "regex": "^/fp-about(\\.html)?$", "destination": "/#about", "type": 301 },
+        { "regex": "^/fp-(collaborate|contact)(\\.html)?$", "destination": "/#contact", "type": 301 },
+        { "regex": "^/fp-(blog|podcast)(\\.html)?$", "destination": "https://blogs.pwavwe.com/", "type": 301 },
+        { "regex": "^/fp-productions(\\.html)?$", "destination": "https://azlearner.me/", "type": 301 },
+        { "regex": "^/blogs(-app)?(\\.html)?$", "destination": "https://blogs.pwavwe.com/", "type": 301 },
+        { "source": "/build", "destination": "/studio", "type": 301 },
+        { "source": "/request", "destination": "https://build.pwavwe.com/request", "type": 302 },
+        { "source": "/request/:rest*", "destination": "https://build.pwavwe.com/request/:rest*", "type": 302 },
+        { "source": "/feedback", "destination": "https://build.pwavwe.com/feedback", "type": 302 },
+        { "source": "/admin", "destination": "https://build.pwavwe.com/admin", "type": 302 },
+        { "source": "/admin/:rest*", "destination": "https://build.pwavwe.com/admin/:rest*", "type": 302 }
+      ],
+      "headers": [
+        {
+          "source": "/studio/assets/**",
+          "headers": [{ "key": "Cache-Control", "value": "public,max-age=31536000,immutable" }]
+        },
+        {
+          "regex": "^/francis(\\.html)?$",
+          "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow" }]
+        }
+      ]
     },
     {
       "target": "build",
@@ -28,6 +68,19 @@
       ],
       "cleanUrls": true,
       "trailingSlash": false,
+      "redirects": [
+        { "source": "/", "destination": "https://pwavwe.com/studio", "type": 301 },
+        { "source": "/work", "destination": "https://pwavwe.com/work", "type": 301 },
+        { "source": "/work/pollaris", "destination": "https://pwavwe.com/work/comitia", "type": 301 },
+        { "source": "/work/:slug", "destination": "https://pwavwe.com/work/:slug", "type": 301 },
+        { "source": "/services", "destination": "https://pwavwe.com/services", "type": 301 },
+        { "source": "/process", "destination": "https://pwavwe.com/process", "type": 301 },
+        { "source": "/testimonials", "destination": "https://pwavwe.com/testimonials", "type": 301 },
+        { "source": "/about", "destination": "https://pwavwe.com/studio/about", "type": 301 },
+        { "source": "/contact", "destination": "https://pwavwe.com/studio/contact", "type": 301 },
+        { "source": "/privacy", "destination": "https://pwavwe.com/studio/privacy", "type": 301 },
+        { "source": "/terms", "destination": "https://pwavwe.com/studio/terms", "type": 301 }
+      ],
       "rewrites": [
         { "source": "**", "destination": "/index.html" }
       ],
