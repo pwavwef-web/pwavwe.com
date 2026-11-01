@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useState, type FormEvent, type ReactNode } from 'react';
 import {
   AlertTriangle, ArrowLeft, Bell, CheckCircle2, Clock, ExternalLink, Eye, EyeOff, GitPullRequest,
-  ListChecks, LoaderCircle, Mail, MessageSquareQuote, Plus, Save, Send, ShieldAlert, Smartphone, Trash2,
+  LayoutGrid, ListChecks, LoaderCircle, Mail, MessageSquareQuote, Plus, Save, Send, ShieldAlert, Smartphone, Trash2,
 } from 'lucide-react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Seo } from '../components/Seo';
@@ -27,6 +27,14 @@ export function AdminRequestPage() {
   return <RequestDetail />;
 }
 
+const detailTabs = [
+  { key: 'overview', label: 'Overview', icon: LayoutGrid },
+  { key: 'delivery', label: 'Delivery', icon: ListChecks },
+  { key: 'messages', label: 'Messages', icon: Mail },
+  { key: 'history', label: 'History', icon: Bell },
+] as const;
+type TabKey = (typeof detailTabs)[number]['key'];
+
 function StatePanel({ icon, title, message, action }: { icon: ReactNode; title: string; message: string; action?: ReactNode }) {
   return <section className="admin-state">{icon}<p className="eyebrow">STUDIO CONSOLE</p><h1>{title}</h1><p>{message}</p>{action}</section>;
 }
@@ -41,6 +49,7 @@ function RequestDetail() {
   const [saving, setSaving] = useState(false);
   const [notice, setNotice] = useState('');
   const [error, setError] = useState('');
+  const [tab, setTab] = useState<TabKey>('overview');
 
   const load = useCallback(async () => {
     setError('');
@@ -115,6 +124,11 @@ function RequestDetail() {
     catch { setError('The request could not be deleted.'); }
   };
 
+  const trackedCount = withDefaultMilestones(request.projectMilestones).length
+    + (request.projectTasks?.length ?? 0) + (request.projectDecisions?.length ?? 0)
+    + (request.projectRisks?.length ?? 0) + (request.projectMeetings?.length ?? 0);
+  const badges: Partial<Record<TabKey, number>> = { delivery: trackedCount, history: messages.length + activity.length };
+
   return <section className="admin-detail dash-page">
     <Seo title={`${request.reference} - Request - Pwavwe Studio`} description="Protected request detail." path="/admin/requests" noIndex />
     <Link className="back-link" to="/admin"><ArrowLeft size={16} /> All requests</Link>
@@ -125,10 +139,11 @@ function RequestDetail() {
         <p>Received {formatDate(request.createdAt)} / Updated {formatDate(request.updatedAt)}</p>
       </div>
       <div className="button-row">
-        <a className="button button-ghost button-small" href="#email-client"><Mail size={16} /> Email</a>
-        {request.phone && <a className="button button-ghost button-small" href="#sms-client"><Smartphone size={16} /> SMS</a>}
+        <button className="button button-ghost button-small" type="button" onClick={() => setTab('messages')}><Mail size={16} /> Email</button>
+        {request.phone && <button className="button button-ghost button-small" type="button" onClick={() => setTab('messages')}><Smartphone size={16} /> SMS</button>}
         <Link className="button button-ghost button-small" to={`/request/status?reference=${encodeURIComponent(request.reference)}`} target="_blank"><Bell size={16} /> Portal</Link>
         {whatsapp && <a className="button button-ghost button-small" href={whatsapp} target="_blank" rel="noreferrer">WhatsApp <ExternalLink size={15} /></a>}
+        <button className="button button-small" type="button" onClick={() => void save()} disabled={saving}>{saving ? <LoaderCircle className="spin" size={16} /> : <Save size={16} />} Save</button>
       </div>
     </header>
     {notice && <p className="save-message" role="status">{notice}</p>}
@@ -136,7 +151,15 @@ function RequestDetail() {
 
     <ProjectPulse request={request} />
 
-    <div className="admin-detail-grid">
+    <nav className="detail-tabs" aria-label="Request sections">
+      {detailTabs.map(({ key, label, icon: Icon }) => (
+        <button key={key} type="button" className={tab === key ? 'is-active' : undefined} aria-current={tab === key} onClick={() => setTab(key)}>
+          <Icon size={16} /> {label}{badges[key] ? <span className="tab-badge">{badges[key]}</span> : null}
+        </button>
+      ))}
+    </nav>
+
+    {tab === 'overview' && <div className="admin-detail-grid">
       <div className="request-record">
         <Section title="Requester">
           <Data label="Name" value={request.name} />
@@ -154,7 +177,6 @@ function RequestDetail() {
           <Data label="Timeline" value={request.preferredTimeline} />
           <Data label="Additional notes" value={request.additionalNotes || 'None'} />
         </Section>
-        <ProjectWorkspace request={request} onChange={set} />
         <Section title="Requester portal">
           <Data label="Tracking link" value={portalUrl} />
           <Data label="Public status" value={humanize(request.publicStatus || request.status)} />
@@ -169,10 +191,6 @@ function RequestDetail() {
           <Data label="SMS updates" value={request.smsConsent ? `Opted in (${request.smsStatus ?? 'pending'})` : 'Not requested'} />
           <Data label="Build Notes marketing" value={request.marketingConsent ? 'Granted separately' : 'Not granted'} />
         </Section>
-        <EmailComposer request={request} onSent={() => void load()} />
-        {request.phone && <SmsComposer request={request} onSent={() => void load()} />}
-        <CommunicationTrail messages={messages} />
-        <ActivityTrail activity={activity} />
       </div>
       <aside className="admin-editor">
         <h2>Manage request</h2>
@@ -197,7 +215,21 @@ function RequestDetail() {
         <button className="button" type="button" onClick={() => void save()} disabled={saving}>{saving ? <LoaderCircle className="spin" size={17} /> : <Save size={17} />} Save changes</button>
         <button className="danger-button" type="button" onClick={() => void remove()}><Trash2 size={16} /> Delete request</button>
       </aside>
-    </div>
+    </div>}
+
+    {tab === 'delivery' && <ProjectWorkspace request={request} onChange={set} />}
+
+    {tab === 'messages' && <div className="detail-stack">
+      <EmailComposer request={request} onSent={() => void load()} />
+      {request.phone
+        ? <SmsComposer request={request} onSent={() => void load()} />
+        : <section className="email-composer"><p className="eyebrow">SMS UPDATES</p><h2><Smartphone size={18} /> Arkesel SMS</h2><p className="email-composer-intro">No phone number on file, so SMS updates are unavailable for this request.</p></section>}
+    </div>}
+
+    {tab === 'history' && <div className="detail-stack">
+      <CommunicationTrail messages={messages} />
+      <ActivityTrail activity={activity} />
+    </div>}
   </section>;
 }
 

@@ -290,6 +290,15 @@ fieldset > p { margin-bottom: 2rem; color: var(--muted); font-size: .88rem; }
 .table-state { display: flex; min-height: 13rem; align-items: center; justify-content: center; gap: .6rem; border: 1px solid var(--line); background: white; color: var(--muted); }
 .table-state.error { color: var(--danger); }
 .table-state button { border: 0; background: transparent; color: var(--teal); font-weight: 800; text-decoration: underline; }
+.detail-tabs { display: flex; flex-wrap: wrap; gap: .25rem; margin: 0 0 1.5rem; border-bottom: 1px solid var(--line); }
+.detail-tabs button { display: inline-flex; align-items: center; gap: .5rem; padding: .75rem 1.05rem; border: 0; background: transparent; color: var(--muted); font: inherit; font-size: .85rem; font-weight: 800; white-space: nowrap; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px; transition: color .18s ease, border-color .18s ease; }
+.detail-tabs button:hover { color: var(--ink); }
+.detail-tabs button.is-active { color: var(--ink); border-bottom-color: var(--teal); }
+.tab-badge { display: inline-flex; align-items: center; justify-content: center; min-width: 1.35rem; height: 1.35rem; padding: 0 .4rem; border-radius: 999px; background: var(--line); color: var(--ink); font-size: .68rem; font-weight: 800; }
+.detail-tabs button.is-active .tab-badge { background: var(--teal-bright); }
+.detail-stack { display: grid; gap: 1rem; }
+.detail-stack > section { padding: 1.5rem; border: 1px solid var(--line); background: white; }
+.detail-stack > section > h2 { font-size: 1.25rem; letter-spacing: -.02em; }
 .admin-detail-grid { display: grid; grid-template-columns: 1fr 380px; gap: 1rem; align-items: start; }
 .request-record section, .admin-editor { padding: 1.5rem; border: 1px solid var(--line); background: white; }
 .request-record section + section { border-top: 0; }
